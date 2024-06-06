@@ -49,4 +49,40 @@ public class TodosTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void test_search_someTasks() {
+        Todos todos = new Todos();
+        todos.add(new SimpleTask(10, "задача"));
+        todos.add(new SimpleTask(12, "задача"));
+        todos.add(new SimpleTask(15, "позвонить"));
+        Task[] expected = {new SimpleTask(10, "задача"), new SimpleTask(12, "задача")};
+        Task[] actual = todos.search("задача");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void test_search_oneTask() {
+        Todos todos = new Todos();
+        todos.add(new Meeting(5,"работа", "java", "понедельник"));
+        todos.add(new Meeting(7,"дом", "ремонт", "вторник"));
+        todos.add(new Meeting(20,"учеба", "диплом", "понедельник"));
+        Task[] expected= {new Meeting(7, "дом", "ремонт", "вторник")};
+        Task[] actual = todos.search("вторник");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void test_search_noTasks() {
+        Todos todos = new Todos();
+        todos.add(new SimpleTask(10, "задача"));
+        todos.add(new SimpleTask(12, "задача"));
+        todos.add(new SimpleTask(15, "позвонить"));
+        Task[] expected = {};
+        Task[] actual = todos.search("учеба");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
 }
